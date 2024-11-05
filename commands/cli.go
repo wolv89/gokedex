@@ -8,7 +8,12 @@ import (
 type Command struct {
 	name        string
 	description string
-	Callback    func() error
+	Callback    func(*Config) error
+}
+
+type Config struct {
+	Next     string
+	Previous string
 }
 
 func GetCommands() map[string]Command {
@@ -22,6 +27,16 @@ func GetCommands() map[string]Command {
 			name:        "exit",
 			description: "Exit the Pokedex",
 			Callback:    Exit,
+		},
+		"map": {
+			name:        "map",
+			description: "List the next 20 locations from the PokeAPI",
+			Callback:    MapForward,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "List the previous 20 locations from the PokeAPI",
+			Callback:    MapBack,
 		},
 	}
 }

@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func Exit() error {
+func Exit(config *Config) error {
 	fmt.Println("Exiting...")
 	os.Exit(0)
 	return nil

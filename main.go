@@ -13,6 +13,8 @@ func main() {
 	COMMANDS := commands.GetCommands()
 	scanner := bufio.NewScanner(os.Stdin)
 
+	config := commands.Config{}
+
 	for {
 
 		fmt.Print("Pokedex > ")
@@ -29,7 +31,7 @@ func main() {
 
 		if _, ok := COMMANDS[cmd]; ok {
 
-			err := COMMANDS[cmd].Callback()
+			err := COMMANDS[cmd].Callback(&config)
 
 			if err != nil {
 				fmt.Println(err)
