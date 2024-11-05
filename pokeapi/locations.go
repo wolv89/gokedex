@@ -20,7 +20,7 @@ func GetLocations(url string) ([]Location, string, string, error) {
 		url = API_BASE_URL + "/location/"
 	}
 
-	err := Call(url, &query)
+	err := pkapi.Call(url, &query)
 	if err != nil {
 		return nil, "", "", err
 	}
