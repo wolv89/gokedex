@@ -16,7 +16,7 @@ func main() {
 
 	config := commands.Config{}
 
-	dex := make(map[string]pokeapi.WildPokemon)
+	dex := make(map[string]pokeapi.CaughtPokemon)
 	config.Dex = &dex
 
 	for {

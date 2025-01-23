@@ -246,21 +246,8 @@ type PokemonQuery struct {
 		Latest string `json:"latest"`
 		Legacy string `json:"legacy"`
 	} `json:"cries"`
-	Stats []struct {
-		BaseStat int `json:"base_stat"`
-		Effort   int `json:"effort"`
-		Stat     struct {
-			Name string `json:"name"`
-			URL  string `json:"url"`
-		} `json:"stat"`
-	} `json:"stats"`
-	Types []struct {
-		Slot int `json:"slot"`
-		Type struct {
-			Name string `json:"name"`
-			URL  string `json:"url"`
-		} `json:"type"`
-	} `json:"types"`
+	Stats     []PokeStats `json:"stats"`
+	Types     []PokeTypes `json:"types"`
 	PastTypes []struct {
 		Generation struct {
 			Name string `json:"name"`
@@ -276,18 +263,39 @@ type PokemonQuery struct {
 	} `json:"past_types"`
 }
 
-type WildPokemon struct {
+type PokeStats struct {
+	BaseStat int `json:"base_stat"`
+	Effort   int `json:"effort"`
+	Stat     struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	} `json:"stat"`
+}
+
+type PokeTypes struct {
+	Slot int `json:"slot"`
+	Type struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	} `json:"type"`
+}
+
+type CaughtPokemon struct {
 	ID             int
 	Name           string
 	BaseExperience int
+	Weight         int
+	Height         int
+	Stats          []PokeStats
+	Types          []PokeTypes
 }
 
-func CatchPokemon(name string) (WildPokemon, error) {
+func CatchPokemon(name string) (CaughtPokemon, error) {
 
-	var wildpoke WildPokemon
+	var caughtpoke CaughtPokemon
 
 	if len(name) == 0 {
-		return wildpoke, fmt.Errorf("Catch who??")
+		return caughtpoke, fmt.Errorf("Catch who??")
 	}
 
 	url := API_BASE_URL + "/pokemon/" + name
@@ -295,13 +303,19 @@ func CatchPokemon(name string) (WildPokemon, error) {
 
 	err := pkapi.Call(url, &query)
 	if err != nil {
-		return wildpoke, err
+		return caughtpoke, err
 	}
 
-	wildpoke.ID = query.ID
-	wildpoke.Name = query.Name
-	wildpoke.BaseExperience = query.BaseExperience
+	caughtpoke.ID = query.ID
+	caughtpoke.Name = query.Name
+	caughtpoke.BaseExperience = query.BaseExperience
+	caughtpoke.Weight = query.Weight
+	caughtpoke.Height = query.Height
 
-	return wildpoke, nil
+	// Deep copy?
+	caughtpoke.Stats = query.Stats
+	caughtpoke.Types = query.Types
+
+	return caughtpoke, nil
 
 }

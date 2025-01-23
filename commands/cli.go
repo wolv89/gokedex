@@ -16,7 +16,7 @@ type Command struct {
 type Config struct {
 	Next     string
 	Previous string
-	Dex      *map[string]pokeapi.WildPokemon
+	Dex      *map[string]pokeapi.CaughtPokemon
 }
 
 func GetCommands() map[string]Command {
@@ -42,14 +42,19 @@ func GetCommands() map[string]Command {
 			Callback:    MapBack,
 		},
 		"explore": {
-			name:        "explore",
+			name:        "explore <location_name>",
 			description: "List all of the Pokemon in a given location area",
 			Callback:    Explore,
 		},
 		"catch": {
-			name:        "catch",
+			name:        "catch <pokemon_name>",
 			description: "Throw a Pokeball at a Pokemon and try to catch it",
 			Callback:    Catch,
+		},
+		"inspect": {
+			name:        "inspect <pokemon_name>",
+			description: "List the stats of a Pokemon in your Pokedex",
+			Callback:    Inspect,
 		},
 	}
 }
