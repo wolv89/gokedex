@@ -28,10 +28,15 @@ func main() {
 		}
 
 		cmd := words[0]
+		var args []string
+
+		if len(words) > 1 {
+			args = words[1:]
+		}
 
 		if _, ok := COMMANDS[cmd]; ok {
 
-			err := COMMANDS[cmd].Callback(&config)
+			err := COMMANDS[cmd].Callback(&config, args)
 
 			if err != nil {
 				fmt.Println(err)

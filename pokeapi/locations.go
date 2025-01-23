@@ -16,8 +16,9 @@ func GetLocations(url string) ([]Location, string, string, error) {
 
 	var query LocationQuery
 
+	// Using the wrong endpoint, d'oh
 	if len(url) == 0 {
-		url = API_BASE_URL + "/location/"
+		url = API_BASE_URL + "/location-area/"
 	}
 
 	err := pkapi.Call(url, &query)

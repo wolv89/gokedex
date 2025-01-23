@@ -2,6 +2,7 @@ package pokeapi
 
 import (
 	"encoding/json"
+	"errors"
 	"io"
 	"net/http"
 	"time"
@@ -50,7 +51,7 @@ func (api *API) Call(url string, query APIQuery) error {
 
 	err = json.Unmarshal(body, &query)
 	if err != nil {
-		return err
+		return errors.New(string(body)) // Expecting something like 'Not Found'
 	}
 
 	api.cache.Add(url, body)

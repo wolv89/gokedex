@@ -7,7 +7,7 @@ import (
 	"github.com/wolv89/gokedex/pokeapi"
 )
 
-func MapForward(config *Config) error {
+func MapForward(config *Config, args []string) error {
 
 	from := ""
 	if config.Next != "" {
@@ -30,7 +30,7 @@ func MapForward(config *Config) error {
 
 }
 
-func MapBack(config *Config) error {
+func MapBack(config *Config, args []string) error {
 
 	if config.Previous == "" {
 		return errors.New("can't map back from first page")
