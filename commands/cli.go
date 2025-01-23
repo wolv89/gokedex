@@ -3,6 +3,8 @@ package commands
 import (
 	"fmt"
 	"strings"
+
+	"github.com/wolv89/gokedex/pokeapi"
 )
 
 type Command struct {
@@ -14,6 +16,7 @@ type Command struct {
 type Config struct {
 	Next     string
 	Previous string
+	Dex      *map[string]pokeapi.WildPokemon
 }
 
 func GetCommands() map[string]Command {
@@ -40,8 +43,13 @@ func GetCommands() map[string]Command {
 		},
 		"explore": {
 			name:        "explore",
-			description: "List all of the Pokemon in a location area",
+			description: "List all of the Pokemon in a given location area",
 			Callback:    Explore,
+		},
+		"catch": {
+			name:        "catch",
+			description: "Throw a Pokeball at a Pokemon and try to catch it",
+			Callback:    Catch,
 		},
 	}
 }

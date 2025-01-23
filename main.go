@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/wolv89/gokedex/commands"
+	"github.com/wolv89/gokedex/pokeapi"
 )
 
 func main() {
@@ -14,6 +15,9 @@ func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	config := commands.Config{}
+
+	dex := make(map[string]pokeapi.WildPokemon)
+	config.Dex = &dex
 
 	for {
 
