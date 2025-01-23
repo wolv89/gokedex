@@ -56,6 +56,11 @@ func GetCommands() map[string]Command {
 			description: "List the stats of a Pokemon in your Pokedex",
 			Callback:    Inspect,
 		},
+		"pokedex": {
+			name:        "pokedex",
+			description: "List all of the Pokemon in your Pokedex",
+			Callback:    Pokedex,
+		},
 	}
 }
 
